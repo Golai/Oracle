@@ -1,6 +1,7 @@
 /*
-Script encargado de pruebas para entrada de valores
-autor: Luis Correal Viveros
+	Autor: Luis Correal Viveros
+	Fecha: 03/12/2021
+	Descripcion: Script encargado de pruebas para entrada de valores
 */
 
 INSERT INTO UserAirBnb 

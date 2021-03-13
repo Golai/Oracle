@@ -1,7 +1,7 @@
 /*
-SCRIPT encargado de crear las tablas de la base de datos AIRBNB 
-
-autor: Luis Correal Viveros
+	Autor: Luis Correal Viveros
+	Fecha: 03/12/2021
+	Descripcion: SCRIPT encargado de crear las tablas de la base de datos AIRBNB 
 */
 
 /*
