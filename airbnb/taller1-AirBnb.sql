@@ -1,3 +1,13 @@
+/*
+SCRIPT encargado de crear las tablas de la base de datos AIRBNB 
+
+autor: Luis Correal Viveros
+*/
+
+/*
+tabla Place en la que se guardara los lugares
+*/
+
 CREATE TABLE Place(
     id                  VARCHAR2(100) NOT NULL,
     updated_at          DATE NOT NULL,
@@ -13,7 +23,11 @@ CREATE TABLE Place(
     latitude            NUMBER(13,10),
     longitude           NUMBER(13,10)
     );
-    
+   
+/*
+tabla Review para hacer reseña
+*/
+
 CREATE TABLE Review (
     id                  VARCHAR2(100) NOT NULL,
     updated_at          DATE NOT NULL,
@@ -22,6 +36,10 @@ CREATE TABLE Review (
     place_id            VARCHAR2(100),
     text                VARCHAR2(250)
     );
+
+/*
+tabla UserAirBnb para los usuarios de la aplicacion
+*/
 
 CREATE TABLE UserAirBnb (
     id                  VARCHAR2(100) NOT NULL,
@@ -32,6 +50,10 @@ CREATE TABLE UserAirBnb (
     first_name          VARCHAR2(25),
     last_name           VARCHAR2(25)
     );
+
+/*
+tabla Amenity para describir las ventajas de un lugar en especifico
+*/
     
 CREATE TABLE Amenity (
     id                  VARCHAR2(100) NOT NULL,
@@ -40,10 +62,19 @@ CREATE TABLE Amenity (
     name                VARCHAR2(25)
     );
 
+/*
+tabla PlaceAmenity para dar contexto del lugar y las ventajas, ya que un 
+lugar puede tener muchas ventajas y una ventaja puede tener muchos usuarios
+*/
+
 CREATE TABLE PlaceAmenity (
     amenity_id          VARCHAR2(100),
     place_id            VARCHAR2(100)
     );
+
+/*
+tabla StateAirBnb para guardar el estado de ubicacion
+*/
     
 CREATE TABLE StateAirBnb (
     id                  VARCHAR2(100) NOT NULL,
@@ -51,6 +82,10 @@ CREATE TABLE StateAirBnb (
     created_at          DATE NOT NULL,
     name                VARCHAR2(25)
     );
+
+/*
+tabla City para la ciudad de ubicacion
+*/
     
 CREATE TABLE City (
     id                  VARCHAR2(100) NOT NULL,
@@ -60,69 +95,7 @@ CREATE TABLE City (
     name                VARCHAR2(25)
     );
 
-ALTER TABLE StateAirBnb 
-MODIFY                 (id CONSTRAINT StateAriBnb_id_pk PRIMARY KEY);
-
-ALTER TABLE Amenity 
-MODIFY                 (id CONSTRAINT Amenity_id_pk PRIMARY KEY);
-
-ALTER TABLE City 
-MODIFY                  (id CONSTRAINT City_id_pk PRIMARY KEY);
-
-ALTER TABLE Place 
-MODIFY                  (id CONSTRAINT Place_id_pk PRIMARY KEY);
-
-ALTER TABLE Review 
-MODIFY                  (id CONSTRAINT Review_id_pk PRIMARY KEY);
-
-ALTER TABLE UserAirBnb 
-MODIFY                  (id CONSTRAINT UserAirBnb_id_pk PRIMARY KEY);
-
-ALTER TABLE PlaceAmenity
-ADD     CONSTRAINT PA_Ame_id
-        FOREIGN KEY (amenity_id)
-        REFERENCES Amenity(id); 
-
-ALTER TABLE PlaceAmenity
-ADD                     (
-                            CONSTRAINT PA_Ame_id_fk
-                                FOREIGN KEY (amenity_id)
-                                REFERENCES Amenity(id),
-                            CONSTRAINT PA_Place_id_fk
-                                FOREIGN KEY (place_id)
-                                REFERENCES Place(id)
-                        );
-        
-ALTER TABLE City
-ADD     CONSTRAINT city_State_id_fk
-            FOREIGN KEY (state_id)
-            REFERENCES StateAirBnb(id);
-            
-ALTER TABLE Place
-ADD     (
-            CONSTRAINT Place_user_id_fk
-                FOREIGN KEY (user_id)
-                REFERENCES UserAirBnb(id),
-            CONSTRAINT Place_city_id_fk
-                FOREIGN KEY (city_id)
-                REFERENCES City(id)
-        );
-        
-ALTER TABLE Review
-ADD     (
-            CONSTRAINT Review_user_id_fk
-                FOREIGN KEY (user_id)
-                REFERENCES UserAirBnb(id),
-            CONSTRAINT Review_place_id_fk
-                FOREIGN KEY (place_id)
-                REFERENCES Place(id)
-        );
-
-ALTER TABLE Place
-MODIFY                  (
-                            number_rooms number(3) DEFAULT 0 NOT NULL,
-                            number_bathrooms number(3) DEFAULT 0 NOT NULL,
-                            max_guest number(3) DEFAULT 0 NOT NULL,
-                            price_by_night number(3) DEFAULT 0 NOT NULL
-                        );
+/*
+los alter table seran encontrados en el siguiente Script (AlterTableAirbnbTaller1.sql)
+*/
                          

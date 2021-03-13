@@ -1,3 +1,8 @@
+/*
+Script encargado de pruebas para entrada de valores
+autor: Luis Correal Viveros
+*/
+
 INSERT INTO UserAirBnb 
             VALUES(
                     '1',
