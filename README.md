@@ -2,6 +2,7 @@
 - 👀 this repo is for educational purposes under the oracle course
 - 📫 How to reach me (in process) thank you for readme, any question will be resolved
 
+- SPANISH
 
 - 👋 Hola, soy Golai (Luis Correal Viveros) autor de este repositorios
 - 👀 este repo es para propositos educativos bajo el curso de oracle
