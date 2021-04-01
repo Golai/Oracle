@@ -47,7 +47,7 @@ que hay en él.
 */
 
 
-SELECT      DEPARTMENT_ID, COUNT(EMPLOYEE_ID)
+SELECT      DEPARTMENT_ID, COUNT(EMPLOYEE_ID) -- seria mejor count(deparment_id) para solo contar empleados que tengan departamento
 FROM        EMPLOYEES
 GROUP BY    DEPARTMENT_ID;
 
@@ -255,67 +255,3 @@ INNER JOIN employees e
     ON e.department_id = d.department_id
         AND e.salary > 3000
 GROUP BY d.department_id, d.department_name;
-
-/*
-U Determinar los números y nombres de los departamentos en donde todos los 
-empleados ganan más de 3000.
-*/
-SELECT  t.total_departamento, 
-        t.total_empleados 
-FROM
-        (
-        SELECT  e.department_id total_departamento, COUNT(e.department_id) total_empleados
-        FROM    employees e
-        GROUP BY e.department_id
-        ) t
-INNER JOIN 
-        (
-        SELECT  d.department_id tt_departamento, COUNT(e.employee_id) tt_empleados
-        FROM    departments d 
-        INNER JOIN employees e 
-            ON  d.department_id = e.department_id
-        WHERE e.salary > 3000
-        GROUP BY d.department_id
-        ) tt
-    ON t.total_empleados = tt.tt_empleados
-        AND t.total_departamento = tt.tt_departamento;
-   
-/*
-V Determinar los números y nombres de los departamentos en donde todos 
-los empleados ganan más de 3000 y existe al menos un jefe que gana más de 5000.
-*/
-
-SELECT  t.total_departamento, t.total_empleados 
-FROM
-        (
-        SELECT e.department_id total_departamento, COUNT(e.department_id) total_empleados
-        FROM employees e
-        GROUP BY e.department_id
-        ) t
-INNER JOIN 
-        (
-        SELECT  d.department_id tt_departamento, d.department_name nombre_departamento, COUNT(e.employee_id) tt_empleados
-        FROM    departments d 
-        INNER JOIN employees e 
-            ON  d.department_id = e.department_id
-        INNER JOIN employees e1
-            ON  e.manager_id = e1.employee_id 
-        WHERE e.salary > 3000 AND e1.salary > 5000
-        GROUP BY d.department_id, d.department_name
-        ) tt
-    ON t.total_empleados = tt.tt_empleados
-        AND t.total_departamento = tt.tt_departamento;      
-        
-/*
-W Determinar los números y nombres de los empleados que no son del departamento 
-80 y que ganan más que cualquiera de los empleados del departamento 80.
-*/
-
-SELECT  e.employee_id codigo_empleado, e.first_name nombre_empleado, e.salary salario
-FROM    employees e
-WHERE   e.department_id <> 80
-      AND e.salary >    (
-                        SELECT MIN(e.salary) 
-                        FROM employees e 
-                        WHERE e.department_id = 80);        
-
